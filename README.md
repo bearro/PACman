@@ -22,11 +22,19 @@ To install pacman do:
 
     cd pacman && git config core.filemode false
 
+==Info on source code binaries to compile:==
+Info:https://github.com/barrystyle/PAC/blob/develop/doc/build-unix.md
+Info2:https://github.com/barrystyle/PAC/blob/develop/doc/build-generic.md
+
+wget https://github.com/PACGlobalOfficial/PAC/archive/24c14bbb7.tar.gz
+mkdir /root/pacraw
+tar -xzvf 24c14bbb7.tar.gz -C /root/pacraw
+
+==One liner re-test Bearro:==
+
+sudo rm -rf .paccore && sudo rm -rf pacman && cd ~ && git clone https://github.com/bearro/pacman && chmod -R 755 pacman && pacman/bin/pacman.sh install
 
 
-sudo rm -rf pacman && cd ~ && git clone https://github.com/bearro/pacman && chmod -R 755 pacman
-
-pacman/bin/pacman.sh install
 
 
 To delete pacman do:
