@@ -10,8 +10,20 @@ PAC wallet/daemon management utilities - version 0.1.28
 
 To install pacman do:
 
-    sudo apt-get install python git unzip pv
-    cd ~ && git clone https://github.com/bearro/pacman
+    sudo apt-get install python git unzip pv && cd ~ && git clone https://github.com/bearro/pacman
+
+    git clone git@github.com:Bearro/pacman.git
+
+    sudo chown -R ~/pacman
+
+    find ~/pacman -type d -exec chmod 755 {} \;
+
+      ~/pacman/pacman install
+
+
+To delete pacman do:
+
+    sudo rm -rf pacman
 
 To update your existing version 12 32/64bit linux pac wallet to the latest
 pacd, do:
