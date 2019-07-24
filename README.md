@@ -18,10 +18,15 @@ To install pacman do:
 
     sudo chown -R ~/pacman
 
-    find ~/pacman -type d -exec chmod 755 {} \;
+    find /pacman -type d -exec chmod 755 {} \;
 
     cd pacman && git config core.filemode false
 
+
+
+sudo rm -rf pacman && cd ~ && git clone https://github.com/bearro/pacman && chmod -R 755 pacman
+
+pacman/bin/pacman.sh install
 
 
 To delete pacman do:
