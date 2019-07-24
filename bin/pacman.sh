@@ -24,7 +24,7 @@ do case "$1" in
     *)         set -- "$@" "$1" ;;
 esac; shift; done
 OPTIND=1
-while getopts "hqvV" o ; do # set $o to the next passed option
+while getopts "hqvV" o ; do # set $o to the next passed option 
   case "$o" in
     q) QUIET=1 ;;
     v) VERBOSE=1 ;;
