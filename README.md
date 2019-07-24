@@ -1,79 +1,79 @@
-# dashman
+# pacman
 
-DASH wallet/daemon management utilities - version 0.1.28
+PAC wallet/daemon management utilities - version 0.1.28
 
-* This script installs, updates, and manages single-user dash daemons and wallets
+* This script installs, updates, and manages single-user pac daemons and wallets
 * It is currently only compatible with 32/64 bit linux.
 * Multi-user (system directory) installs are not supported
 
 # Install/Usage
 
-To install dashman do:
+To install pacman do:
 
     sudo apt-get install python git unzip pv
-    cd ~ && git clone https://github.com/moocowmoo/dashman
+    cd ~ && git clone https://github.com/moocowmoo/pacman
 
-To update your existing version 12 32/64bit linux dash wallet to the latest
-dashd, do:
+To update your existing version 12 32/64bit linux pac wallet to the latest
+pacd, do:
 
-    dashman/dashman update
+    pacman/pacman update
 
-To perform a new install of dash, do:
+To perform a new install of pac, do:
 
-    dashman/dashman install
+    pacman/pacman install
 
-To overwrite an existing dash install, do:
+To overwrite an existing pac install, do:
 
-    dashman/dashman reinstall
+    pacman/pacman reinstall
 
-To update dashman to the latest version, do:
+To update pacman to the latest version, do:
 
-    dashman/dashman sync
+    pacman/pacman sync
 
-To restart (or start) dashd, do:
+To restart (or start) pacd, do:
 
-    dashman/dashman restart
+    pacman/pacman restart
 
-To get the current status of dashd, do:
+To get the current status of pacd, do:
 
-    dashman/dashman status
+    pacman/pacman status
 
 
 # Commands
 
 ## sync
 
-"dashman sync" updates dashman to the latest version from github
+"pacman sync" updates pacman to the latest version from github
 
 ## install
 
-"dashman install" downloads and initializes a fresh dash install into ~/.dashcore
+"pacman install" downloads and initializes a fresh pac install into ~/.paccore
 unless already present
 
 ## reinstall
 
-"dashman reinstall" downloads and overwrites existing dash executables, even if
+"pacman reinstall" downloads and overwrites existing pac executables, even if
 already present
 
 ## update
 
-where it all began, "dashman update" searches for your dashd/dash-cli
-executibles in the current directory, ~/.dashcore, and $PATH.  It will prompt
-to install in the first directory found containing both dashd and dash-cli.
+where it all began, "pacman update" searches for your pacd/pac-cli
+executibles in the current directory, ~/.paccore, and $PATH.  It will prompt
+to install in the first directory found containing both pacd and pac-cli.
 Multiple wallet directories are not supported. The script assumes the host runs
-a single instance of dashd.
+a single instance of pacd.
 
 ## restart
 
-"dashman restart [now]" restarts (or starts) dashd. Searches for dash-cli/dashd
-the current directory, ~/.dashcore, and $PATH. It will prompt to restart if not
+"pacman restart [now]" restarts (or starts) pacd. Searches for pac-cli/pacd
+the current directory, ~/.paccore, and $PATH. It will prompt to restart if not
 given the optional 'now' argument.
 
 <a href="#restart-1">screencap</a>
 
 ## status
 
-"dashman status" interrogates the locally running dashd and displays its status
+"pacman status" interrogates the locally running pacd and displays its status
 
 <a href="#status-1">screencap</a>
 
@@ -86,29 +86,29 @@ given the optional 'now' argument.
 * pv
 * python
 * unzip
-* dashd, dash-cli - version 12 or greater to update
+* pacd, pac-cli - version 12 or greater to update
 
 # Screencaps
 
 ### install
 
-<img src="https://raw.githubusercontent.com/moocowmoo/dashman/master/screencaps/dashman_0.1-install.png">
+<img src="https://raw.githubusercontent.com/moocowmoo/pacman/master/screencaps/pacman_0.1-install.png">
 
 ### update
 
-<img src="https://raw.githubusercontent.com/moocowmoo/dashman/master/screencaps/dashman_0.1-update.png">
+<img src="https://raw.githubusercontent.com/moocowmoo/pacman/master/screencaps/pacman_0.1-update.png">
 
 ### reinstall
 
-<img src="https://raw.githubusercontent.com/moocowmoo/dashman/master/screencaps/dashman_0.1-reinstall.png">
+<img src="https://raw.githubusercontent.com/moocowmoo/pacman/master/screencaps/pacman_0.1-reinstall.png">
 
 ### restart
 
-<img src="https://raw.githubusercontent.com/moocowmoo/dashman/master/screencaps/dashman_0.1-restart.png">
+<img src="https://raw.githubusercontent.com/moocowmoo/pacman/master/screencaps/pacman_0.1-restart.png">
 
 ### status
 
-<img src="https://raw.githubusercontent.com/moocowmoo/dashman/master/screencaps/dashman_0.1-status.png">
+<img src="https://raw.githubusercontent.com/moocowmoo/pacman/master/screencaps/pacman_0.1-status.png">
 
 # Contact
 
