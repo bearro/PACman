@@ -12,13 +12,16 @@ To install pacman do:
 
     sudo apt-get install python git unzip pv && cd ~ && git clone https://github.com/bearro/pacman
 
+    cd ~ && git clone https://github.com/bearro/pacman
+
     git clone git@github.com:Bearro/pacman.git
 
     sudo chown -R ~/pacman
 
     find ~/pacman -type d -exec chmod 755 {} \;
 
-      ~/pacman/pacman install
+    cd pacman && git config core.filemode false
+
 
 
 To delete pacman do:

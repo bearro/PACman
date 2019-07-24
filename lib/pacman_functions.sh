@@ -25,7 +25,7 @@ if [ -t 1 ] || [ ! -z "$FORCE_COLOR" ] ; then
 fi
 
 
-GITHUB_API_PAC="https://api.github.com/repos/pacpay/pac"
+GITHUB_API_PAC="https://api.github.com/repos/PACGlobalOfficial/PAC"
 
 PACD_RUNNING=0
 PACD_RESPONDING=0
