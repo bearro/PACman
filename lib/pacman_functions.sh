@@ -318,7 +318,7 @@ _find_pac_directory() {
 
 
 _check_pacman_updates() {
-    GITHUB_PACMAN_VERSION=$( $curl_cmd https://raw.githubusercontent.com/moocowmoo/pacman/master/VERSION )
+    GITHUB_PACMAN_VERSION=$( $curl_cmd https://raw.githubusercontent.com/bearro/pacman/master/VERSION )
     if [ ! -z "$GITHUB_PACMAN_VERSION" ] && [ "$PACMAN_VERSION" != "$GITHUB_PACMAN_VERSION" ]; then
         echo -e "\n"
         echo -e "${C_RED}${0##*/} ${messages["requires_updating"]} $C_GREEN$GITHUB_PACMAN_VERSION$C_RED\n${messages["requires_sync"]}$C_NORM\n"
