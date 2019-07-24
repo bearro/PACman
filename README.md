@@ -92,24 +92,24 @@ given the optional 'now' argument.
 
 ### install
 
-<img src="https://raw.githubusercontent.com/moocowmoo/pacman/master/screencaps/pacman_0.1-install.png">
+<img src="https://raw.githubusercontent.com/bearro/pacman/master/screencaps/pacman_0.1-install.png">
 
 ### update
 
-<img src="https://raw.githubusercontent.com/moocowmoo/pacman/master/screencaps/pacman_0.1-update.png">
+<img src="https://raw.githubusercontent.com/bearro/pacman/master/screencaps/pacman_0.1-update.png">
 
 ### reinstall
 
-<img src="https://raw.githubusercontent.com/moocowmoo/pacman/master/screencaps/pacman_0.1-reinstall.png">
+<img src="https://raw.githubusercontent.com/bearro/pacman/master/screencaps/pacman_0.1-reinstall.png">
 
 ### restart
 
-<img src="https://raw.githubusercontent.com/moocowmoo/pacman/master/screencaps/pacman_0.1-restart.png">
+<img src="https://raw.githubusercontent.com/bearro/pacman/master/screencaps/pacman_0.1-restart.png">
 
 ### status
 
-<img src="https://raw.githubusercontent.com/moocowmoo/pacman/master/screencaps/pacman_0.1-status.png">
+<img src="https://raw.githubusercontent.com/bearro/pacman/master/screencaps/pacman_0.1-status.png">
 
 # Contact
 
-Email me at moocowmoo@masternode.me or submit a pull request.
+Email me at bearro@masternode.me or submit a pull request.
