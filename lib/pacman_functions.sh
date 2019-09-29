@@ -393,6 +393,7 @@ _get_versions() {
             DOWNLOAD_FILE=${DOWNLOAD_URL##*/}
         fi
     done
+    ok "$DOWNLOAD_FILE"
 }
 
 
