@@ -713,7 +713,7 @@ install_pacd(){
         IPADDR=$PUBLIC_IPV4
 #        if [ ! -z "$USE_IPV6" ]; then
 #            IPADDR='['$PUBLIC_IPV6']'
-#        fi
+#
         RPCUSER=`echo $(dd if=/dev/urandom bs=32 count=1 2>/dev/null) | sha256sum | awk '{print $1}'`
         RPCPASS=`echo $(dd if=/dev/urandom bs=32 count=1 2>/dev/null) | sha256sum | awk '{print $1}'`
         while read; do
@@ -726,32 +726,32 @@ install_pacd(){
 
     cd $INSTALL_DIR
 
+#============================================
+#COMMMENTING OUT CHECKSOM BEARRO
+#============================================
+
     # pull it ----------------------------------------------------------------
 
     pending " --> ${messages["downloading"]} ${DOWNLOAD_URL}... "
     tput sc
     echo -e "$C_CYAN"
     $wget_cmd -O - $DOWNLOAD_URL | pv -trep -s28787607 -w80 -N wallet > $DOWNLOAD_FILE
-    $wget_cmd -O - https://github.com/pacpay/pac/releases/download/v$LATEST_VERSION/SHA256SUMS.asc | pv -trep -w80 -N checksums > ${DOWNLOAD_FILE}.DIGESTS.txt
+#    $wget_cmd -O - https://github.com/pacpay/pac/releases/download/v$LATEST_VERSION/SHA256SUMS.asc | pv -trep -w80 -N checksums > ${DOWNLOAD_FILE}.DIGESTS.txt
     echo -ne "$C_NORM"
     clear_n_lines 2
     tput rc
     clear_n_lines 3
-    if [ ! -e $DOWNLOAD_FILE ] ; then
-        echo -e "${C_RED}error ${messages["downloading"]} file"
-        echo -e "tried to get $DOWNLOAD_URL$C_NORM"
-        exit 1
-    else
-        ok ${messages["done"]}
-    fi
+#    if [ ! -e $DOWNLOAD_FILE ] ; then
+#        echo -e "${C_RED}error ${messages["downloading"]} file"
+#        echo -e "tried to get $DOWNLOAD_URL$C_NORM"
+#        exit 1
+#    else
+#        ok ${messages["done"]}
+#    fi
 
     # prove it ---------------------------------------------------------------
 
-#============================================
-#COMMMENTING OUT CHECKSOM BEARRO
-#============================================
-
-#  pending " --> ${messages["checksumming"]} ${DOWNLOAD_FILE}... "
+  pending " --> ${messages["checksumming"]} ${DOWNLOAD_FILE}... "
 #    SHA256SUM=$( sha256sum $DOWNLOAD_FILE )
 #    #MD5SUM=$( md5sum $DOWNLOAD_FILE )
 #    SHA256PASS=$( grep $SHA256SUM ${DOWNLOAD_FILE}.DIGESTS.txt | wc -l )
