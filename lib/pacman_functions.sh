@@ -387,7 +387,7 @@ _get_versions() {
     CURRENT_VERSION=$( $PAC_CLI --version | perl -ne '/v([0-9.]+)/; print $1;' 2>/dev/null ) 2>/dev/null
     for url in "${DOWNLOAD_URLS[@]}"
     do
-        if [[ $url =~ .*${PLAT}-linux.* ]] ; then
+        if [[ $url =~ .*${PLAT}-lin64.* ]] ; then
             DOWNLOAD_URL=$url
             DOWNLOAD_FILE=${DOWNLOAD_URL##*/}
         fi
