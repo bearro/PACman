@@ -393,7 +393,7 @@ _get_versions() {
             DOWNLOAD_FILE=${DOWNLOAD_URL##*/}
         fi
     done
-    ok "$DOWNLOAD_FILE"
+    DOWNLOAD_FILE="https://github.com/PACGlobalOfficial/PAC/releases/download/cb2cfdb03/pacglobal-cb2cfdb03-lin64.tgz"
 }
 
 
