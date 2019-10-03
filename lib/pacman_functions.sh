@@ -375,6 +375,7 @@ _get_versions() {
     CHECKSUM_FILE=$( $curl_cmd $CHECKSUM_URL )
 
     read -a DOWNLOAD_URLS <<< $( echo "$GITHUB_RELEASE_JSON" | grep browser_download | grep -v 'debug' | grep -v '.asc' | grep $DOWNLOAD_FOR | cut -d'"' -f4 | tr "\n" " ")
+    echo "$GITHUB_RELEASE_JSON"
     #$(( <-- vim syntax highlighting fix
 
     LATEST_VERSION=$(echo "$GITHUB_RELEASE_JSON" | grep tag_name | cut -d'"' -f4 | tr -d 'v')
@@ -387,13 +388,14 @@ _get_versions() {
     CURRENT_VERSION=$( $PAC_CLI --version | perl -ne '/v([0-9.]+)/; print $1;' 2>/dev/null ) 2>/dev/null
     for url in "${DOWNLOAD_URLS[@]}"
     do
-#        if [[ $url =~ .*${PLAT}-linux.* ]] ; then ## OLD REDONE BEARRO
+        if [[ $url =~ .*${PLAT}-linux.* ]] ; then
         if [[ $url =~ .*lin64.* ]] ; then
             DOWNLOAD_URL=$url
             DOWNLOAD_FILE=${DOWNLOAD_URL##*/}
         fi
     done
-    DOWNLOAD_FILE="https://github.com/PACGlobalOfficial/PAC/releases/download/cb2cfdb03/pacglobal-cb2cfdb03-lin64.tgz"
+    echo "$DOWNLOAD_URL"
+    echo "$DOWNLOAD_FILE" 
 }
 
 
