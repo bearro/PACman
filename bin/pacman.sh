@@ -71,8 +71,8 @@ COMMAND=''
 case "$1" in
         restart)
             COMMAND=$1
-            _find_pac_directory
-            _check_pacglobald_state
+            _find_pacglobal_directory
+            _check_pacglobal_state
             # TODO, show uptime: ps --no-header -o pid,etime $(cat $INSTALL_DIR/pacglobal.pid) | awk '{print $2}'
             case "$2" in
                 now)
@@ -80,7 +80,7 @@ case "$1" in
                     ;;
                 *)
                     echo
-                    pending "restart pacglobald? "
+                    pending "restart pacglobal? "
                     confirm "[${C_GREEN}y${C_NORM}/${C_RED}N${C_NORM}] $C_CYAN" && \
                         restart_pacglobald
                     ;;
@@ -90,7 +90,7 @@ case "$1" in
             COMMAND=$1
             pending "${messages["gathering_info"]}"
             _check_pacman_updates
-            _find_pac_directory
+            _find_pacglobal_directory
             _get_versions
             _check_pacglobald_state
             ok " ${messages["done"]}"
@@ -117,11 +117,11 @@ case "$1" in
             if [ ! -z "$2" ]; then
                 APP=$2;
                 if [ "$APP" == 'sentinel' ]; then
-                    _find_pac_directory
+                    _find_pacglobal_directory
                     install_sentinel
                 elif [ "$APP" == 'unattended' ]; then
                     UNATTENDED=1
-                    install_pacglobald
+                    install_pacglobal
                 else
                     echo "don't know how to install: $2"
                 fi
@@ -130,7 +130,7 @@ case "$1" in
                 # pacman
                 # ???
             else
-                install_pacglobald
+                install_pacglobal
                 show_message_configure
             fi
             quit
@@ -139,7 +139,7 @@ case "$1" in
             COMMAND=$1
             pending "${messages["gathering_info"]}"
             _check_pacman_updates
-            _find_pac_directory
+            _find_pacglobal_directory
             _get_versions
             _check_pacglobald_state
             REINSTALL=1
@@ -204,7 +204,7 @@ case "$1" in
             COMMAND=$1
             pending "${messages["gathering_info"]}"
             _check_pacman_updates
-            _find_pac_directory
+            _find_pacglobal_directory
             _get_versions
             _check_pacglobald_state
             ok " ${messages["done"]}"
@@ -217,7 +217,7 @@ case "$1" in
             COMMAND=$1
             pending "${messages["gathering_info"]}"
             _check_pacman_updates
-            _find_pac_directory
+            _find_pacglobal_directory
             _get_versions
             _check_pacglobald_state
             get_pacglobald_status
