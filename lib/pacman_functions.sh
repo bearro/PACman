@@ -246,7 +246,7 @@ _check_dependencies() {
 
 # attempt to locate pacglobal-cli executable.
 # search current dir, ~/.pacglobal, `which pacglobal-cli` ($PATH), finally recursive
-_find_pac_directory() {
+_find_pacglobal_directory() {
 
     INSTALL_DIR=''
 
@@ -474,14 +474,14 @@ update_pacglobald(){
 
         if [ ! -z "$REINSTALL" ];then
             echo -e ""
-            echo -e "$C_GREEN*** ${messages["pac_version"]} $CURRENT_VERSION is up-to-date. ***$C_NORM"
+            echo -e "$C_GREEN*** ${messages["pacglobal_version"]} $CURRENT_VERSION is up-to-date. ***$C_NORM"
             echo -e ""
             echo -en
 
             pending "${messages["reinstall_to"]} $INSTALL_DIR$C_NORM?"
         else
             echo -e ""
-            echo -e "$C_RED*** ${messages["newer_pac_available"]} ***$C_NORM"
+            echo -e "$C_RED*** ${messages["newer_pacglobal_available"]} ***$C_NORM"
             echo -e ""
             echo -e "${messages["currnt_version"]} $C_RED$CURRENT_VERSION$C_NORM"
             echo -e "${messages["latest_version"]} $C_GREEN$LATEST_VERSION$C_NORM"
@@ -660,12 +660,12 @@ update_pacglobald(){
 
             quit
         else
-            echo -e "${C_RED}${messages["pac_version"]} $CURRENT_VERSION ${messages["is_not_uptodate"]} ($LATEST_VERSION) ${messages["exiting"]}$C_NORM"
+            echo -e "${C_RED}${messages["pacglobal_version"]} $CURRENT_VERSION ${messages["is_not_uptodate"]} ($LATEST_VERSION) ${messages["exiting"]}$C_NORM"
         fi
 
     else
         echo -e ""
-        echo -e "${C_GREEN}${messages["pac_version"]} $CURRENT_VERSION ${messages["is_uptodate"]} ${messages["exiting"]}$C_NORM"
+        echo -e "${C_GREEN}${messages["pacglobal_version"]} $CURRENT_VERSION ${messages["is_uptodate"]} ${messages["exiting"]}$C_NORM"
     fi
 
     exit 0
@@ -934,7 +934,7 @@ install_pacglobald(){
         fi
 
     else
-        echo -e "${C_RED}${messages["pac_version"]} $CURRENT_VERSION ${messages["is_not_uptodate"]} ($LATEST_VERSION) ${messages["exiting"]}$C_NORM"
+        echo -e "${C_RED}${messages["pacglobal_version"]} $CURRENT_VERSION ${messages["is_not_uptodate"]} ($LATEST_VERSION) ${messages["exiting"]}$C_NORM"
         exit 1
     fi
 
