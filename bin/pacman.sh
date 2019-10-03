@@ -24,7 +24,7 @@ do case "$1" in
     *)         set -- "$@" "$1" ;;
 esac; shift; done
 OPTIND=1
-while getopts "hqvV" o ; do # set $o to the next passed option 
+while getopts "hqvV" o ; do # set $o to the next passed option
   case "$o" in
     q) QUIET=1 ;;
     v) VERBOSE=1 ;;
@@ -72,17 +72,17 @@ case "$1" in
         restart)
             COMMAND=$1
             _find_pac_directory
-            _check_pacd_state
-            # TODO, show uptime: ps --no-header -o pid,etime $(cat $INSTALL_DIR/pac.pid) | awk '{print $2}'
+            _check_pacglobald_state
+            # TODO, show uptime: ps --no-header -o pid,etime $(cat $INSTALL_DIR/pacglobal.pid) | awk '{print $2}'
             case "$2" in
                 now)
-                    restart_pacd
+                    restart_pacglobald
                     ;;
                 *)
                     echo
-                    pending "restart pacd? "
+                    pending "restart pacglobald? "
                     confirm "[${C_GREEN}y${C_NORM}/${C_RED}N${C_NORM}] $C_CYAN" && \
-                        restart_pacd
+                        restart_pacglobald
                     ;;
             esac
             ;;
@@ -92,7 +92,7 @@ case "$1" in
             _check_pacman_updates
             _find_pac_directory
             _get_versions
-            _check_pacd_state
+            _check_pacglobald_state
             ok " ${messages["done"]}"
             if [ ! -z "$2" ]; then
                 if [ "$2" == '-y' ] || [ "$2" == '-Y' ]; then
@@ -103,7 +103,7 @@ case "$1" in
             if [ ! -z "$ARM" ] && [ $BIGARM -eq 0 ]; then
                 die "$COMMAND not supported yet on this platform."
             fi
-            update_pacd
+            update_pacglobald
             ;;
         install)
             COMMAND=$1
@@ -121,7 +121,7 @@ case "$1" in
                     install_sentinel
                 elif [ "$APP" == 'unattended' ]; then
                     UNATTENDED=1
-                    install_pacd
+                    install_pacglobald
                 else
                     echo "don't know how to install: $2"
                 fi
@@ -130,7 +130,7 @@ case "$1" in
                 # pacman
                 # ???
             else
-                install_pacd
+                install_pacglobald
                 show_message_configure
             fi
             quit
@@ -141,13 +141,13 @@ case "$1" in
             _check_pacman_updates
             _find_pac_directory
             _get_versions
-            _check_pacd_state
+            _check_pacglobald_state
             REINSTALL=1
             ok " ${messages["done"]}"
             if [ ! -z "$ARM" ] && [ $BIGARM -eq 0 ]; then
                 die "$COMMAND not supported yet on this platform."
             fi
-            update_pacd
+            update_pacglobald
             ;;
         sync)
             COMMAND=$1
@@ -206,7 +206,7 @@ case "$1" in
             _check_pacman_updates
             _find_pac_directory
             _get_versions
-            _check_pacd_state
+            _check_pacglobald_state
             ok " ${messages["done"]}"
             echo
             export PAC_CLI PACMAN_PID=$$
@@ -219,8 +219,8 @@ case "$1" in
             _check_pacman_updates
             _find_pac_directory
             _get_versions
-            _check_pacd_state
-            get_pacd_status
+            _check_pacglobald_state
+            get_pacglobald_status
             get_host_status
             ok " ${messages["done"]}"
             echo

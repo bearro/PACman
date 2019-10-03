@@ -32,8 +32,7 @@ tar -xzvf 24c14bbb7.tar.gz -C /root/pacraw
 
 ==One liner re-test Bearro:==
 
-sudo rm -rf .paccore && sudo rm -rf pacman && cd ~ && git clone https://github.com/bearro/pacman && chmod -R 755 pacman && pacman/bin/pacman.sh install
-
+sudo rm -rf .pacglobal && sudo rm -rf pacman && cd ~ && git clone https://github.com/bearro/pacman && chmod -R 755 pacman && pacman/bin/pacman.sh install
 
 
 
@@ -42,7 +41,7 @@ To delete pacman do:
     sudo rm -rf pacman
 
 To update your existing version 12 32/64bit linux pac wallet to the latest
-pacd, do:
+pacglobald, do:
 
     pacman/pacman update
 
@@ -58,11 +57,11 @@ To update pacman to the latest version, do:
 
     pacman/pacman sync
 
-To restart (or start) pacd, do:
+To restart (or start) pacglobald, do:
 
     pacman/pacman restart
 
-To get the current status of pacd, do:
+To get the current status of pacglobald, do:
 
     pacman/pacman status
 
@@ -75,7 +74,7 @@ To get the current status of pacd, do:
 
 ## install
 
-"pacman install" downloads and initializes a fresh pac install into ~/.paccore
+"pacman install" downloads and initializes a fresh pac install into ~/.pacglobal
 unless already present
 
 ## reinstall
@@ -85,23 +84,23 @@ already present
 
 ## update
 
-where it all began, "pacman update" searches for your pacd/pac-cli
-executibles in the current directory, ~/.paccore, and $PATH.  It will prompt
-to install in the first directory found containing both pacd and pac-cli.
+where it all began, "pacman update" searches for your pacglobald/pacglobal-cli
+executibles in the current directory, ~/.pacglobal, and $PATH.  It will prompt
+to install in the first directory found containing both pacglobald and pacglobal-cli.
 Multiple wallet directories are not supported. The script assumes the host runs
-a single instance of pacd.
+a single instance of pacglobald.
 
 ## restart
 
-"pacman restart [now]" restarts (or starts) pacd. Searches for pac-cli/pacd
-the current directory, ~/.paccore, and $PATH. It will prompt to restart if not
+"pacman restart [now]" restarts (or starts) pacglobald. Searches for pacglobal-cli/pacglobald
+the current directory, ~/.pacglobal, and $PATH. It will prompt to restart if not
 given the optional 'now' argument.
 
 <a href="#restart-1">screencap</a>
 
 ## status
 
-"pacman status" interrogates the locally running pacd and displays its status
+"pacman status" interrogates the locally running pacglobald and displays its status
 
 <a href="#status-1">screencap</a>
 
@@ -114,7 +113,7 @@ given the optional 'now' argument.
 * pv
 * python
 * unzip
-* pacd, pac-cli - version 12 or greater to update
+* pacglobald, pacglobal-cli - version 12 or greater to update
 
 # Screencaps
 
