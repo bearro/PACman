@@ -209,7 +209,7 @@ _check_dependencies() {
     (which perl 2>&1) >/dev/null || MISSING_DEPENDENCIES="${MISSING_DEPENDENCIES}perl "
     (which git  2>&1) >/dev/null || MISSING_DEPENDENCIES="${MISSING_DEPENDENCIES}git "
 
-    MN_CONF_ENABLED=$( egrep -s '^[^#]*\s*masternode\s*=\s*1' $HOME/.pac{,core}/pacglobal.conf | wc -l 2>/dev/null)
+    MN_CONF_ENABLED=$( egrep -s '^[^#]*\s*masternode\s*=\s*1' $HOME/.pacglobal{,core}/pacglobal.conf | wc -l 2>/dev/null)
     if [ $MN_CONF_ENABLED -gt 0 ] ; then
         (which unzip 2>&1) >/dev/null || MISSING_DEPENDENCIES="${MISSING_DEPENDENCIES}unzip "
         (which virtualenv 2>&1) >/dev/null || MISSING_DEPENDENCIES="${MISSING_DEPENDENCIES}python-virtualenv "
@@ -245,7 +245,7 @@ _check_dependencies() {
 }
 
 # attempt to locate pacglobal-cli executable.
-# search current dir, ~/.pac, `which pacglobal-cli` ($PATH), finally recursive
+# search current dir, ~/.pacglobal, `which pacglobal-cli` ($PATH), finally recursive
 _find_pac_directory() {
 
     INSTALL_DIR=''
@@ -276,9 +276,9 @@ _find_pac_directory() {
     elif [ -e ./pacglobal-cli ] ; then
         INSTALL_DIR='.' ;
 
-        # check ~/.pac directory
-    elif [ -e $HOME/.pac/pacglobal-cli ] ; then
-        INSTALL_DIR="$HOME/.pac" ;
+        # check ~/.pacglobal directory
+    elif [ -e $HOME/.pacglobal/pacglobal-cli ] ; then
+        INSTALL_DIR="$HOME/.pacglobal" ;
 
     elif [ -e $HOME/.pacglobal/pacglobal-cli ] ; then
         INSTALL_DIR="$HOME/.pacglobal" ;
@@ -418,7 +418,7 @@ restart_pacglobald(){
         pending " --> ${messages["stopping"]} pacglobald. ${messages["please_wait"]}"
         $PAC_CLI stop 2>&1 >/dev/null
         sleep 10
-        killall -9 pacglobald pac-shutoff 2>/dev/null
+        killall -9 pacglobald pacglobal-shutoff 2>/dev/null
         ok "${messages["done"]}"
         pacglobald_RUNNING=0
     fi
@@ -508,32 +508,31 @@ update_pacglobald(){
 
         # pull it ----------------------------------------------------------------
 
-        pending " --> ${messages["downloading"]} ${DOWNLOAD_URL}... "
-        wget --no-check-certificate -q -r $DOWNLOAD_URL -O $DOWNLOAD_FILE
-        wget --no-check-certificate -q -r https://github.com/pacpay/pac/releases/download/v$LATEST_VERSION/SHA256SUMS.asc -O ${DOWNLOAD_FILE}.DIGESTS.txt
-        if [ ! -e $DOWNLOAD_FILE ] ; then
-            echo -e "${C_RED}${messages["err_downloading_file"]}"
-            echo -e "${messages["err_tried_to_get"]} $DOWNLOAD_URL$C_NORM"
-
-            exit 1
-        else
-            ok "${messages["done"]}"
-        fi
+#        wget --no-check-certificate -q -r $DOWNLOAD_URL -O $DOWNLOAD_FILE
+#        wget --no-check-certificate -q -r https://github.com/pacpay/pac/releases/download/v$LATEST_VERSION/SHA256SUMS.asc -O ${DOWNLOAD_FILE}.DIGESTS.txt
+#        if [ ! -e $DOWNLOAD_FILE ] ; then
+  #          echo -e "${C_RED}${messages["err_downloading_file"]}"
+#            echo -e "${messages["err_tried_to_get"]} $DOWNLOAD_URL$C_NORM"
+#
+#            exit 1
+#        else
+#            ok "${messages["done"]}"
+#        fi
 
         # prove it ---------------------------------------------------------------
 
-        pending " --> ${messages["checksumming"]} ${DOWNLOAD_FILE}... "
-        SHA256SUM=$( sha256sum $DOWNLOAD_FILE )
-        SHA256PASS=$( grep $SHA256SUM ${DOWNLOAD_FILE}.DIGESTS.txt | wc -l )
-        if [ $SHA256PASS -lt 1 ] ; then
-            echo -e " ${C_RED} SHA256 ${messages["checksum"]} ${messages["FAILED"]} ${messages["try_again_later"]} ${messages["exiting"]}$C_NORM"
-            exit 1
-        fi
-        ok "${messages["done"]}"
+#        pending " --> ${messages["checksumming"]} ${DOWNLOAD_FILE}... "
+#        SHA256SUM=$( sha256sum $DOWNLOAD_FILE )
+#        SHA256PASS=$( grep $SHA256SUM ${DOWNLOAD_FILE}.DIGESTS.txt | wc -l )
+#        if [ $SHA256PASS -lt 1 ] ; then
+#            echo -e " ${C_RED} SHA256 ${messages["checksum"]} ${messages["FAILED"]} ${messages["try_again_later"]} ${messages["exiting"]}$C_NORM"
+#            exit 1
+#        fi
+#        ok "${messages["done"]}"
 
         # produce it -------------------------------------------------------------
 
-        pending " --> ${messages["unpacking"]} ${DOWNLOAD_FILE}... " && \
+#        pending " --> ${messages["unpacking"]} ${DOWNLOAD_FILE}... " && \
         tar zxf $DOWNLOAD_FILE && \
         ok "${messages["done"]}"
 
@@ -543,7 +542,7 @@ update_pacglobald(){
             pending " --> ${messages["stopping"]} pacglobald. ${messages["please_wait"]}"
             $PAC_CLI stop >/dev/null 2>&1
             sleep 15
-            killall -9 pacglobald pac-shutoff >/dev/null 2>&1
+            killall -9 pacglobald pacglobal-shutoff >/dev/null 2>&1
             ok "${messages["done"]}"
         fi
 
@@ -564,8 +563,8 @@ update_pacglobald(){
             sporks.dat \
             pacglobald \
             pacglobald-$CURRENT_VERSION \
-            pac-qt \
-            pac-qt-$CURRENT_VERSION \
+            pacglobal-qt \
+            pacglobal-qt-$CURRENT_VERSION \
             pacglobal-cli \
             pacglobal-cli-$CURRENT_VERSION \
             pacglobal-${CURRENT_VERSION}*.gz*
@@ -576,23 +575,23 @@ update_pacglobald(){
         mv $TARDIR/bin/pacglobald pacglobald-$LATEST_VERSION
         mv $TARDIR/bin/pacglobal-cli pacglobal-cli-$LATEST_VERSION
         if [ $PLATFORM != 'armv7l' ];then
-            mv $TARDIR/bin/pac-qt pac-qt-$LATEST_VERSION
+            mv $TARDIR/bin/pacglobal-qt pacglobal-qt-$LATEST_VERSION
         fi
         ln -s pacglobald-$LATEST_VERSION pacglobald
         ln -s pacglobal-cli-$LATEST_VERSION pacglobal-cli
         if [ $PLATFORM != 'armv7l' ];then
-            ln -s pac-qt-$LATEST_VERSION pac-qt
+            ln -s pacglobal-qt-$LATEST_VERSION pacglobal-qt
         fi
 
         # permission it ----------------------------------------------------------
 
         if [ ! -z "$SUDO_USER" ]; then
-            chown -h $SUDO_USER:$SUDO_USER {$DOWNLOAD_FILE,${DOWNLOAD_FILE}.DIGESTS.txt,pacglobal-cli,pacglobald,pac-qt,pac*$LATEST_VERSION}
+            chown -h $SUDO_USER:$SUDO_USER {$DOWNLOAD_FILE,${DOWNLOAD_FILE}.DIGESTS.txt,pacglobal-cli,pacglobald,pacglobal-qt,pacglobal*$LATEST_VERSION}
         fi
 
         # purge it ---------------------------------------------------------------
 
-        rm -rf pac-0.12.0
+        rm -rf pacglobal-0.12.0
         rm -rf pacglobal-0.12.1*
         rm -rf pacglobal-0.12.2*
         rm -rf pacglobal-0.12.3*
@@ -656,7 +655,7 @@ update_pacglobald(){
             echo -e ""
             echo -e "${C_GREEN}${messages["installed_in"]} ${INSTALL_DIR}$C_NORM"
             echo -e ""
-            ls -l --color {$DOWNLOAD_FILE,${DOWNLOAD_FILE}.DIGESTS.txt,pacglobal-cli,pacglobald,pac-qt,pac*$LATEST_VERSION}
+            ls -l --color {$DOWNLOAD_FILE,${DOWNLOAD_FILE}.DIGESTS.txt,pacglobal-cli,pacglobald,pacglobal-qt,pacglobal*$LATEST_VERSION}
             echo -e ""
 
             quit
@@ -740,7 +739,7 @@ install_pacglobald(){
 #    tput sc
     echo -e "$C_CYAN"
     $wget_cmd -O - $DOWNLOAD_URL | pv -trep -s28787607 -w80 -N wallet > $DOWNLOAD_FILE
-#    $wget_cmd -O - https://github.com/pacpay/pac/releases/download/v$LATEST_VERSION/SHA256SUMS.asc | pv -trep -w80 -N checksums > ${DOWNLOAD_FILE}.DIGESTS.txt
+#    $wget_cmd -O - https://github.com/pacpay/pacglobal/releases/download/v$LATEST_VERSION/SHA256SUMS.asc | pv -trep -w80 -N checksums > ${DOWNLOAD_FILE}.DIGESTS.txt
 #    echo -ne "$C_NORM"
 #    clear_n_lines 2
 #    tput rc
@@ -783,7 +782,7 @@ install_pacglobald(){
 #        pending " --> ${messages["stopping"]} pacglobald. ${messages["please_wait"]}"
 #        $PAC_CLI stop >/dev/null 2>&1
 #        sleep 15
-#        killall -9 pacglobald pac-shutoff >/dev/null 2>&1
+#        killall -9 pacglobald pacglobal-shutoff >/dev/null 2>&1
 #        ok "${messages["done"]}"
 #    fi
 
@@ -802,8 +801,8 @@ install_pacglobald(){
 #        peers.dat \
 #        pacglobald \
 #        pacglobald-$CURRENT_VERSION \
-#        pac-qt \
-#        pac-qt-$CURRENT_VERSION \
+#        pacglobal-qt \
+#        pacglobal-qt-$CURRENT_VERSION \
 #        pacglobal-cli \
 #        pacglobal-cli-$CURRENT_VERSION
 #    ok "${messages["done"]}"
@@ -813,23 +812,23 @@ install_pacglobald(){
     mv $TARDIR/bin/pacglobald pacglobald-$LATEST_VERSION
     mv $TARDIR/bin/pacglobal-cli pacglobal-cli-$LATEST_VERSION
     if [ $PLATFORM != 'armv7l' ];then
-        mv $TARDIR/bin/pac-qt pac-qt-$LATEST_VERSION
+        mv $TARDIR/bin/pacglobal-qt pacglobal-qt-$LATEST_VERSION
     fi
     ln -s pacglobald-$LATEST_VERSION pacglobald
     ln -s pacglobal-cli-$LATEST_VERSION pacglobal-cli
     if [ $PLATFORM != 'armv7l' ];then
-        ln -s pac-qt-$LATEST_VERSION pac-qt
+        ln -s pacglobal-qt-$LATEST_VERSION pacglobal-qt
     fi
 
     # permission it ----------------------------------------------------------
 
     if [ ! -z "$SUDO_USER" ]; then
-        chown -h $SUDO_USER:$SUDO_USER {$DOWNLOAD_FILE,${DOWNLOAD_FILE}.DIGESTS.txt,pacglobal-cli,pacglobald,pac-qt,pac*$LATEST_VERSION}
+        chown -h $SUDO_USER:$SUDO_USER {$DOWNLOAD_FILE,${DOWNLOAD_FILE}.DIGESTS.txt,pacglobal-cli,pacglobald,pacglobal-qt,pacglobal*$LATEST_VERSION}
     fi
 
     # purge it ---------------------------------------------------------------
 
-    rm -rf pac-0.12.0
+    rm -rf pacglobal-0.12.0
     rm -rf pacglobal-0.12.1*
     rm -rf pacglobal-0.12.2*
     rm -rf pacglobal-0.12.3*
@@ -919,12 +918,12 @@ install_pacglobald(){
 
     if [ $LATEST_VERSION == $CURRENT_VERSION ]; then
         echo -e ""
-        echo -e "${C_GREEN}pac ${LATEST_VERSION} ${messages["successfully_installed"]}$C_NORM"
+        echo -e "${C_GREEN}pacglobal ${LATEST_VERSION} ${messages["successfully_installed"]}$C_NORM"
 
         echo -e ""
         echo -e "${C_GREEN}${messages["installed_in"]} ${INSTALL_DIR}$C_NORM"
         echo -e ""
-        ls -l --color {$DOWNLOAD_FILE,${DOWNLOAD_FILE}.DIGESTS.txt,pacglobal-cli,pacglobald,pac-qt,pac*$LATEST_VERSION}
+        ls -l --color {$DOWNLOAD_FILE,${DOWNLOAD_FILE}.DIGESTS.txt,pacglobal-cli,pacglobald,pacglobal-qt,pacglobal*$LATEST_VERSION}
         echo -e ""
 
         if [ ! -z "$SUDO_USER" ]; then
@@ -976,7 +975,7 @@ get_pacglobald_status(){
     pacglobald_GETINFO=`$PAC_CLI getinfo 2>/dev/null`;
     pacglobald_DIFFICULTY=$(echo "$pacglobald_GETINFO" | grep difficulty | awk '{print $2}' | sed -e 's/[",]//g')
 
-    WEB_BLOCK_COUNT_CHAINZ=`$curl_cmd https://chainz.cryptoid.info/pac/api.dws?q=getblockcount`;
+    WEB_BLOCK_COUNT_CHAINZ=`$curl_cmd https://chainz.cryptoid.info/pacglobal/api.dws?q=getblockcount`;
     if [ -z "$WEB_BLOCK_COUNT_CHAINZ" ]; then
         WEB_BLOCK_COUNT_CHAINZ=0
     fi
@@ -1069,7 +1068,7 @@ get_pacglobald_status(){
     MN_PROTX_QUEUE_POSITION=0
     MN_PROTX_SERVICE_VALID=0
 
-    MN_CONF_ENABLED=$( egrep -s '^[^#]*\s*masternode\s*=\s*1' $HOME/.pac{,core}/pacglobal.conf | wc -l 2>/dev/null)
+    MN_CONF_ENABLED=$( egrep -s '^[^#]*\s*masternode\s*=\s*1' $HOME/.pacglobal{,core}/pacglobal.conf | wc -l 2>/dev/null)
     #MN_STARTED=`$PAC_CLI masternode status 2>&1 | grep 'successfully started' | wc -l`
     MN_REGISTERED=0
     [[ -z "$MN_PROTX_RECORD" ]] || MN_REGISTERED=1
